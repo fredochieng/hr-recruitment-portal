@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "hr_recruitment",
+            "dialect": "MySQL",
+            "name": "HR Recruitment Database Connection",
+            "password": "root",
+            "port": 8889,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
+}
