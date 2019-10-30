@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table id="example2" class="table table-hover" style="font-size:11px">
+                    <table id="example4" class="table table-hover" style="font-size:11px">
                         <thead>
                             <tr>
                                 <th>Candidate Name</th>
@@ -49,12 +49,7 @@
                             <tbody>
                                 @foreach ($selected_candidates as $item)
                                 <tr>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ $item->phone }}</td>
-                                    <td>{{ $item->decision }}</td>
-                                    <td>{{ $item->decision_by_name }}</td>
-                                    <td>{{ $item->created_by }}</td>
+
                                 </tr>
                                 @endforeach
                             </tbody>

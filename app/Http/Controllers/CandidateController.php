@@ -60,7 +60,7 @@ class CandidateController extends Controller
 
         // dd($data['function_head_decision']);
 
-        $data['candidate_ratings'] = CandidateRating::getRatings()->where('candidate_id', $candidate_id);
+        $data['candidate_ratings'] = CandidateRating::getRatings($candidate_id);
 
         //dd($data['candidate_ratings']);
         $data['count'] = (count($data['candidate_ratings']));

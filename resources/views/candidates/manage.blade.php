@@ -89,13 +89,12 @@
                     <td><strong>MY RATING STATUS: <span
                                 class="badge bg-{{$rating_status_color}}">{{$rating_status}}</span></strong>
                     </td>
-                    <td><strong>SESSION STARTED: <span
+                    {{-- <td><strong>SESSION STARTED: <span
                                 class="badge bg-{{$session_label_color}}">{{$candidates->session_started}}</span></strong>
-                    </td>
-
+                    </td> --}}
+                    <td style=""><strong>SESSION STARTED AT: </strong> {{ $candidates->session_started_at }}</td>
                 </tr>
                 <tr>
-                    <td style=""><strong>SESSION STARTED AT: </strong> {{ $candidates->session_started_at }}</td>
                     <td style=""><strong>SESSION ENDED AT:</strong>{{ $candidates->session_ended_at }}</td>
                     <td style="">
                         <strong>INTERVIEW DURARTION: </strong> 45 MINUTES</td>
@@ -127,6 +126,11 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">All Panelists Ratings</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
     </div>
     <!-- /.box-header -->
     <div class="box-body  with-border">
@@ -183,7 +187,7 @@
                 <tfoot>
                     <tr class="bg-gray font-17 footer-total text-center">
                         <td colspan="1" rowspan="1"><strong>Average Marks:</strong></td>
-                        <td colspan="3"><span class="display_currency" data-currency_symbol="true">
+                        <td colspan="1"><span class="display_currency" data-currency_symbol="true">
                                 <strong> {{ $item->avg_marks }} Marks</strong></span></td>
                         <td rowspan="1" colspan="4"></td>
                     </tr>
@@ -243,11 +247,12 @@
     "use strict";
 
 var ratings = <?php echo json_encode($candidate_ratings); ?>;
+console.log(ratings);
 
 var datasets = [];
 for(var i=0; i< ratings.length; i++) {
     var rating = ratings[i];
-    console.log(rating);
+ 
    var color = getRandomColor();
     //alert(color);
     //rating.ratings
@@ -264,7 +269,7 @@ for(var i=0; i< ratings.length; i++) {
         };
         datasets.push(dataset);
 }
-console.log(dataset);
+console.log(datasets);
 var areaChartData = {
 labels : ['Dress up', 'Composure', 'Attitude', 'Motivation', 'Communication', 'Assertiveness', 'Persuasiveness','Professional', 'Experience', 'Comp. Proficiency', 
 'Technical Skills', 'Business Knowledege', 'Clarity of thought', 'Job Knowledge', 'Response to questions', 'Logic'],
@@ -277,9 +282,9 @@ datasets: datasets
 var barChartCanvas = $('#barChart').get(0).getContext('2d')
 var barChart = new Chart(barChartCanvas)
 var barChartData = areaChartData
-barChartData.datasets[1].fillColor = '#00a65a'
-barChartData.datasets[1].strokeColor = '#00a65a'
-barChartData.datasets[1].pointColor = '#00a65a'
+// barChartData.datasets[1].fillColor = '#00a65a'
+// barChartData.datasets[1].strokeColor = '#00a65a'
+// barChartData.datasets[1].pointColor = '#00a65a'
 var barChartOptions = {
 //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
 scaleBeginAtZero : true,

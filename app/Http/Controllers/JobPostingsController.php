@@ -113,7 +113,17 @@ class JobPostingsController extends Controller
         $posting_type_id = $request->input('posting_type_id');
         $no_of_candidates = $request->input('no_of_candidates');
 
-        $job_posting->opening_ticket = 'WGK-001';
+        $last_ticket = JobPosting::orderBy('id', 'desc')->first();
+
+        if (!$last_ticket) {
+            $number = 0;
+        } else {
+            $last_ticket = $last_ticket->opening_ticket;
+            $number = substr($last_ticket, -3);
+        }
+        $next_number = sprintf('%03d', intval($number) + 1);
+
+        $job_posting->opening_ticket = 'WGK-JOB-' . $next_number;
         $job_posting->opening_name = $opening_name;
         $job_posting->opening_type = $posting_type_id;
         $job_posting->country_id = $country_id;

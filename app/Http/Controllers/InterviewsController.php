@@ -148,13 +148,18 @@ class InterviewsController extends Controller
 
         $data['candidates'] = Candidate::getcandidates()->where('int_id', '=', $interview_id);
 
-        $data['ratings'] = CandidateRating::getRatings()->where('interview_id', '=', $interview_id);
+        $data['ratings'] = CandidateRating::getInterviewRatings($interview_id);
+        // $data['ratings'] = CandidateRating::getRatings()->where('interview_id', '=', $interview_id);
 
         if (count($data['ratings']) > 0) {
             $data['ratings_available'] = 'Y';
         } else {
             $data['ratings_available'] = 'N';
         }
+
+        $data['average_ratings'] = CandidateRating::getAverageRatings()->where('interview_id', '=', $interview_id);
+
+        //dd($data['average_ratings']);
 
         $data['selected_candidates'] = Interview::getSelectedCandidates()->where('int_id', $interview_id);
         //dd($data['ratings']);
@@ -354,7 +359,7 @@ class InterviewsController extends Controller
 
         // Check whether all the interview panelist have submitted their ratings
         $expected_panelist_count = InterviewPanelist::getPanelists()->where('int_id', $interview_id)->count();
-        $submitted_ratings_count = CandidateRating::getRatings()->where('candidate_id', $candidate_id)->count();
+        $submitted_ratings_count = CandidateRating::getRatings($candidate_id)->count();
         if ($expected_panelist_count == $submitted_ratings_count) {
             $end_session = Candidate::where("id", $candidate_id)->update([
                 'interviewed' => 'CLOSED',
@@ -369,6 +374,16 @@ class InterviewsController extends Controller
             $remaining_panelists = $expected_panelist_count - $submitted_ratings_count;
             if ($remaining_panelists == 1) {
                 $message = $remaining_panelists . ' panelist has not yet submitted his/her ratings';
+            } elseif ($remaining_panelists < 0) {
+                $end_session = Candidate::where("id", $candidate_id)->update([
+                    'interviewed' => 'CLOSED',
+                    'ended_at' => $now
+                ]);
+
+                Log::info("INTERVIEW SESSION FOR CANDIDATE " . $candidate_id .  " CLOSED BY HR OF ID: " . Auth::id() . " NAME " . Auth::user()->name . " AT " . $now);
+
+                Toastr::success('Interview session for candidate closed successfully');
+                return back();
             } else {
                 $message = $remaining_panelists . ' panelists have not yet submitted their ratings';
             }

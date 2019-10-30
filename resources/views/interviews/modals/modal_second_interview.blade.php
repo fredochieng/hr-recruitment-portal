@@ -1,12 +1,12 @@
-<div class="modal fade" id="modal_second_interview_{{$candidates->candidate_id}}">
+<div class="modal fade" id="modal_second_interview_{{$item->cand_id}}">
     <div class="modal-dialog">
         <div class="modal-content">
             {!!
-            Form::open(['action'=>['CandidateController@secondInterview',$candidates->candidate_id],'method'=>'POST','class'=>'floatit','enctype'=>'multipart/form-data'])
+            Form::open(['action'=>['CandidateController@secondInterview',$item->cand_id],'method'=>'POST','class'=>'floatit','enctype'=>'multipart/form-data'])
             !!}
 
-            <input type="hidden" name="interview_id" value="{{ $candidates->interview_id }}">
-            <input type="hidden" name="candidate_id" value="{{ $candidates->candidate_id }}">
+            <input type="hidden" name="interview_id" value="{{ $item->interview_id }}">
+            <input type="hidden" name="candidate_id" value="{{ $item->cand_id }}">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <p>Are you sure you want to call for second interview for <span
-                                style="font-weight:bold">{{$candidates->name}}</span>?
+                                style="font-weight:bold">{{$item->candidate_name}}</span>?
                         </p>
                     </div>
                 </div>

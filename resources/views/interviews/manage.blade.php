@@ -89,7 +89,6 @@
                     @elseif($interviews->started_at == '' && $interviews->ended_at == '')
                     <td style=""><strong>ENDED AT: </strong>NOT STARTED</td>
                     @endif
-                    <td style=""><strong>FULL NAME: </strong> {{$interviews->interview_name}}</td>
                     <td style=""><strong>CREATED BY: </strong> {{$interviews->name}}</td>
                     <td style=""><strong>CREATED AT: </strong> {{$interviews->interview_created_at}}</td>
                 </tr>
@@ -100,6 +99,11 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Selected Candidates</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
     </div>
     <!-- /.box-header -->
     <div class="box-body  with-border">
@@ -162,11 +166,16 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">All Panelists Ratings</h3>
+        <div class="pull-right">
+            <a href="#" data-target="#modal_average_ratings_{{ $interviews->interview_id }}" data-toggle="modal"
+                class="btn btn-primary" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus"></i> Average
+                Ratings </a>
+        </div>
     </div>
     <!-- /.box-header -->
     <div class="box-body  with-border">
         <div class="table-responsive">
-            <table id="example2" class="table table-hover" style="font-size:13px">
+            <table id="example3" class="table table-hover" style="font-size:13px">
                 <thead>
                     <tr>
                         <th>
@@ -213,19 +222,6 @@
                     </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    @if ($ratings_available == 'Y')
-                    <tr class="bg-gray font-17 footer-total text-center">
-                        <td colspan="1" rowspan="1"><strong>Average Marks:</strong></td>
-                        <td colspan="3"><span class="display_currency" data-currency_symbol="true">
-                                <strong> {{ $item->avg_marks }} Marks</strong></span></td>
-                        <td rowspan="1" colspan="4"></td>
-                    </tr>
-                    @else
-
-                    @endif
-                </tfoot>
-
             </table>
         </div>
     </div>
@@ -236,6 +232,7 @@
 @include('interviews.modals.modal_add_panelist')
 @include('interviews.modals.modal_start_session')
 @include('interviews.modals.modal_close_session')
+@include('interviews.modals.modal_average_ratings')
 @include('interviews.modals.modal_selected_candidates')
 @section('css')
 <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
@@ -263,6 +260,13 @@
         })
         $(".select2").select2()
            })
+
+           $('#example3').DataTable({
+            "pageLength": 5
+            })
+           $('#example4').DataTable({
+            "pageLength": 5
+            })
       
 </script>
 @stop
