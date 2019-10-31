@@ -124,9 +124,6 @@ class CandidateController extends Controller
         Log::info('Ratings are as follows' . $rating_marks);
         Toastr::success('Ratings submitted successfully');
         return back();
-
-
-        dd($panelist_id);
     }
 
     public function offerLetter(Request $request)

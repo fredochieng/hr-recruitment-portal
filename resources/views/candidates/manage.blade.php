@@ -69,7 +69,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body with-border">
-
+        <input type="hidden" id="job_type" value="{{ $candidates->opening_type }}">
         <table class="table table-no-margin">
             <tbody style="font-size:12px">
                 <tr>
@@ -216,7 +216,6 @@
 <script src="/js/Chart.js"></script>
 <script>
     $(function () {
-       
            $('input').keyup(function(){
         var rating_marks1 = Number($('#rating_marks1').val());
         var rating_marks2 = Number($('#rating_marks2').val());
@@ -240,6 +239,17 @@
         rating_marks14 + rating_marks15 + rating_marks16;
 
         document.getElementById('total_marks').value = total_marks;
+        });
+           $('input').keyup(function(){
+        var rating_marks1 = Number($('#senior_rating_marks1').val());
+        var rating_marks2 = Number($('#senior_rating_marks2').val());
+        var rating_marks3 = Number($('#senior_rating_marks3').val());
+        var rating_marks4 = Number($('#senior_rating_marks4').val());
+        var rating_marks5 = Number($('#senior_rating_marks5').val());
+
+        var total_marks = rating_marks1 + rating_marks2 + rating_marks3 + rating_marks4 + rating_marks5;
+
+        document.getElementById('senior_total_marks').value = total_marks;
         });
         });
       
@@ -269,12 +279,20 @@ for(var i=0; i< ratings.length; i++) {
         };
         datasets.push(dataset);
 }
-console.log(datasets);
+var job_type = $('#job_type').val();
+if(job_type == 2){
 var areaChartData = {
 labels : ['Dress up', 'Composure', 'Attitude', 'Motivation', 'Communication', 'Assertiveness', 'Persuasiveness','Professional', 'Experience', 'Comp. Proficiency', 
 'Technical Skills', 'Business Knowledege', 'Clarity of thought', 'Job Knowledge', 'Response to questions', 'Logic'],
 datasets: datasets
 };
+}
+else{
+   var areaChartData = {
+labels : ['Education Background', 'Employment Experience', 'Technical Skills/Job Knowledge', 'Leadership Skills', 'Interpersonal Skills'],
+datasets: datasets
+}; 
+}
 
 //-------------
 //- BAR CHART -

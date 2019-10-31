@@ -226,7 +226,6 @@ class InterviewsController extends Controller
             $panelist_id = $existing->id;
             $panelist_email = $existing->email;
             $panelist_name = $existing->name;
-
             // Will be replaced with InterviewPanelist Model
             $interview_panelists = array(
                 'int_id' => $interview_id,

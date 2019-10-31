@@ -221,12 +221,24 @@ return [
                 ],
             ],
         ],
-
         [
-            'text' => 'Exit Interviews',
-            'url'  => '',
-            'icon' => 'fas fa-fw fa-arrow-circle-left',
+            'text'    => 'Exit Interviews',
+            'icon'    => 'fas fa-fw fa-arrow-circle-left',
             'icon_color' => 'aqua',
+            'submenu' => [
+                [
+                    'text' => 'All Exit Interviews',
+                    'url'  => 'exit_interviews',
+                    'icon' => 'fas fa-fw fa-plus-circle',
+                    'icon_color' => 'purple'
+                ],
+                [
+                    'text' => 'Deleted Exit Interviews',
+                    'url'  => 'exit_interview/deleted',
+                    'icon' => 'fas fa-fw fa-trash',
+                    'icon_color' => 'danger'
+                ],
+            ],
         ],
         [
             'text'    => 'Reports',
@@ -238,7 +250,8 @@ return [
                     'url'  => '',
                     'icon'    => 'fas fa-fw fa-list-alt',
                     'icon_color' => 'purple'
-                ], [
+                ],
+                [
                     'text' => 'Job Interviews',
                     'url'  => '',
                     'icon' => 'fas fa-fw fa-th-list',
@@ -246,7 +259,7 @@ return [
                 ],
                 [
                     'text' => 'Exit Interviews',
-                    'url'  => '',
+                    'url'  => 'exit_interviews',
                     'icon' => 'fas fa-fw fa-list-ul',
                     'icon_color' => 'aqua'
                 ],

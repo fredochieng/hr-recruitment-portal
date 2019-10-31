@@ -12,10 +12,12 @@
                     <table id="example2" class="table table-hover" style="font-size:12px">
                         <thead>
                             <tr>
-                                <th>S/N</th>
                                 <th>Candidate Name</th>
                                 <th>Candidate Email</th>
                                 <th>Phone Number</th>
+                                <th>Interview Start Time</th>
+                                <th>Interview End Time</th>
+                                <th>Decision</th>
                                 <th>Average Marks</th>
                                 <th>Action (Offer Letter/ Second Interview)</th>
                             </tr>
@@ -23,10 +25,11 @@
                         <tbody>
                             @foreach ($average_ratings as $count => $item)
                             <tr>
-                                <td>{{ $count + 1 }}</td>
                                 <td>{{ $item->candidate_name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->phone }}</td>
+                                <td>{{ $item->session_start_time }}</td>
+                                <td>{{ $item->session_end_time }}</td>
                                 <td>{{ $item->decision }}</td>
                                 <td><strong>{{ round($item->average_marks) }}/ 80 Marks</strong></td>
                                 <td>

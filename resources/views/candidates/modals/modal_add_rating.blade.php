@@ -10,6 +10,7 @@
                 <h4 class="modal-title">Rate Candidate - <b>{{ $candidates->name }}</b></h4>
             </div>
             <input type="hidden" name="candidate_id" value="{{ $candidates->candidate_id }}">
+            <input type="hidden" name="job_type" value="2">
             <input type="hidden" name="full_marks" value="80">
             <div class="modal-body">
                 <div class="row">

@@ -99,6 +99,8 @@ class CandidateRating extends Model
                 DB::raw('avg(candidate_ratings.total_marks) as average_marks'),
                 DB::raw('interview_candidates.id as candidate_id'),
                 DB::raw('interview_candidates.name as candidate_name'),
+                DB::raw('interview_candidates.started_at as session_start_time'),
+                DB::raw('interview_candidates.ended_at as session_end_time'),
                 DB::raw('interview_candidates.email'),
                 DB::raw('interview_candidates.phone'),
                 DB::raw('interviews.id as interview_id'),

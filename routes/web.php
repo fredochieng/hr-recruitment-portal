@@ -53,3 +53,7 @@ Route::any('/candidate/manage/&id={id}', 'CandidateController@manageCandidate');
 Route::any('/candidate/add_ratings', 'CandidateController@addRatings');
 Route::any('/candidate/offer_letter', 'CandidateController@offerLetter');
 Route::any('/candidate/second_interview', 'CandidateController@secondInterview');
+
+// Exit Interviews Routes
+Route::resource('exit_interviews', 'ExitInterviewsController');
+Route::any('exit_interview/deleted', 'ExitInterviewsController@deletedExitInterviews');

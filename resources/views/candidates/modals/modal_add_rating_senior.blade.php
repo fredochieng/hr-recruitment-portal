@@ -10,102 +10,47 @@
                 <h4 class="modal-title">Rate Candidate - <b>{{ $candidates->name }}</b></h4>
             </div>
             <input type="hidden" name="candidate_id" value="{{ $candidates->candidate_id }}">
-            <input type="hidden" name="full_marks" value="80">
+            <input type="hidden" name="job_type" value="1">
+            <input type="hidden" name="full_marks" value="50">
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            {!! Form::label('Communication *') !!}
+                            {!! Form::label('Education Background *') !!}
                             <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks5', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
+                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'senior_rating_marks1', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            {!! Form::label('Assertiveness *') !!}
+                            {!! Form::label('Employment Experience *') !!}
                             <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks6', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
+                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'senior_rating_marks2', 'required', 'min'=> '1', 'max'=> '10', 'placeholder'=>'Rate between 1 & 10 (1 = lowest, 10= highest)'])}}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            {!! Form::label('Verbal / Persuasiveness *') !!}
+                            {!! Form::label('Technical Skills/Job Knowledge *') !!}
                             <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks7', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
+                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'senior_rating_marks3', 'required', 'min'=> '1', 'max'=> '15', 'placeholder'=>'Rate between 1 & 15 (1 = lowest, 15= highest)'])}}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            {!! Form::label('Education / Professional *') !!}
+                            {!! Form::label('Leadership Skills *') !!}
                             <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks8', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
+                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'senior_rating_marks4', 'required', 'min'=> '1', 'max'=> '10', 'placeholder'=>'Rate between 1 & 10 (1 = lowest, 10= highest)'])}}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            {!! Form::label('Relevant Experience *') !!}
+                            {!! Form::label('Interpersonal Skills *') !!}
                             <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks9', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {!! Form::label('Computer Proficiency *') !!}
-                            <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks10', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {!! Form::label('Technical Skills *') !!}
-                            <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks11', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {!! Form::label('Business Knowledge *') !!}
-                            <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks12', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {!! Form::label('Clarity of Thought *') !!}
-                            <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks13', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {!! Form::label('Job Knowledge *') !!}
-                            <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks14', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {!! Form::label('Clear Understanding of Questions *') !!}
-                            <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks15', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {!! Form::label('Logic *') !!}
-                            <div class="form-group">
-                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'rating_marks16', 'required', 'min'=> '1', 'max'=> '5', 'placeholder'=>'Rate between 1 & 5 (1 = lowest, 5= highest)'])}}
+                                {{Form::number('rating_marks[]', null, ['class' => 'form-control', 'id'=>'senior_rating_marks5', 'required', 'min'=> '1', 'max'=> '10', 'placeholder'=>'Rate between 1 & 10 (1 = lowest, 10= highest)'])}}
                             </div>
                         </div>
                     </div>
@@ -113,7 +58,7 @@
                         <div class="form-group">
                             {!! Form::label('Total Marks') !!}
                             <div class="form-group">
-                                {{Form::number('total_marks', null, ['class' => 'form-control', 'id'=>'total_marks'])}}
+                                {{Form::number('total_marks', null, ['class' => 'form-control', 'id'=>'senior_total_marks'])}}
                             </div>
                         </div>
                     </div>
