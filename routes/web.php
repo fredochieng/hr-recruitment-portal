@@ -57,3 +57,6 @@ Route::any('/candidate/second_interview', 'CandidateController@secondInterview')
 // Exit Interviews Routes
 Route::resource('exit_interviews', 'ExitInterviewsController');
 Route::any('exit_interview/deleted', 'ExitInterviewsController@deletedExitInterviews');
+
+// Department Routes
+Route::resource('departments', 'DepartmentController');

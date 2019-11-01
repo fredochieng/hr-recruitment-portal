@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Home\HomeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -26,7 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $data['open_interviews_count'] = HomeModel::openInterviewsCount();
+        $data['closed_interviews_count'] = HomeModel::closedInterviewsCount();
+        $data['senior_interviews_count'] = HomeModel::seniorRolesInterviewsCount();
+        $data['junior_interviews_count'] = HomeModel::juniorRolesInterviewsCount();
         Toastr::success('Welcome, ' . Auth::user()->name);
-        return view('home');
+        return view('home')->with($data);
     }
 }

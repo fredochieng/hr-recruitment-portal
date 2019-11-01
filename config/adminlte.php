@@ -241,6 +241,12 @@ return [
             ],
         ],
         [
+            'text' => 'Departments',
+            'url'  => 'departments',
+            'icon' => 'fas fa-fw fa-laptop',
+            'icon_color' => 'blue',
+        ],
+        [
             'text'    => 'Reports',
             'icon'    => 'fas fa-fw fa-barcode',
             'icon_color' => 'purple',
