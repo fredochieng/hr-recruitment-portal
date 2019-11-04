@@ -68,6 +68,7 @@
     <div class="col-md-7">
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
+
                 <li class="active"><a href="#tab-edit-asset" data-toggle="tab" class="ticket-tab-button"
                         aria-expanded="true">Edit
                         Job Posting</a></li>
@@ -79,6 +80,7 @@
                         Functional Head
                     </a>
                     @endif
+                    @if((auth()->user()->can('interview.add')))
                     @if ($job_postings->opening_status == 1 && $interview_status == 'Not Created Yet' && $func_heads
                     == 'N')
                     <a href="#" data-toggle="modal" disabled
@@ -93,7 +95,7 @@
                         class="btn btn-primary btn-sm btn-flat"><i class="fas fa-fw fa-plus-circle"></i> Create
                         Job
                         Interview</a>
-
+                    @endif
                     @endif
 
                 </div>
@@ -192,12 +194,13 @@
                             </div>
                         </div>
 
-
+                        @if((auth()->user()->can('job.edit')))
                         <div class="col-md-3 pull-right">
                             <button type="submit" style="margin-top:25px;" class="btn btn-block btn-success"><strong><i
                                         class="fa fa-fw fa-save"></i>Save
                                     Changes</strong></button>
                         </div>
+                        @endif
                         {!! Form::close() !!}
 
                     </div>

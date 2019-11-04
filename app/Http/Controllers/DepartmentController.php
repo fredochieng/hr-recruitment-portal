@@ -7,9 +7,12 @@ use App\Models\Departments\Department;
 use App\User;
 use DB;
 use Illuminate\Support\Facades\Auth;
-use Kamaln7\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Kamaln7\Toastr\Facades\Toastr;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+
 
 class DepartmentController extends Controller
 {
@@ -21,6 +24,10 @@ class DepartmentController extends Controller
     public function index()
     {
         $data['countries'] = Country::getCountries();
+        $data['departments'] = Department::getDepartments();
+        // echo "<pre>";
+        // print_r($data['departments']);
+        // exit;
         return view('departments.index')->with($data);
     }
 
@@ -50,15 +57,27 @@ class DepartmentController extends Controller
         $user->save();
 
         $just_saved_user_id = $user->id;
-        $just_saved_user_id = (array) $just_saved_user_id;
+        $just_saved_user_id1 = $user->id;
 
-        $id = json_encode($just_saved_user_id, true);
-        print_r($id);
-        exit;
+        $just_saved_user_id = (array) $just_saved_user_id;
+        $user_ids = json_encode($just_saved_user_id);
+        $user_ids = str_replace('[', '["', $user_ids);
+        $user_ids = str_replace(']', '"]', $user_ids);
 
         $department = new Department();
         $department->country_id = $request->input('country_id');
         $department->department_name = ucwords($request->input('department_name'));
+        $department->functional_heads = $user_ids;
+        $department->save();
+
+        $user_role = array(
+            'model_id' => $just_saved_user_id1,
+            'role_id' => 3
+        );
+        $save_user_role = DB::table('model_has_roles')->insertGetId($user_role);
+
+        Toastr::success('Department added successfully');
+        return back();
     }
 
     /**
@@ -91,8 +110,20 @@ class DepartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    { }
+
+    public function updateDepartment(Request $request)
     {
-        //
+        $departrment_id = $request->input('department_id');
+        $now = Carbon::now('Africa/Nairobi');
+        $update_interview = Department::where("id", $departrment_id)->update([
+            'department_name' => strtoupper($request->input('department_name')),
+            'country_id' => $request->input('country_id')
+        ]);
+
+        Log::info("DEPARTMENT OF ID " . $departrment_id .  " UPDATED BY USER ID: " . Auth::id() . " NAME " . Auth::user()->name . " AT " . $now);
+        Toastr::success('Department updated successfully');
+        return back();
     }
 
     /**
@@ -103,6 +134,13 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $now = Carbon::now('Africa/Nairobi');
+
+        $data = Department::find($id)->delete();
+
+        Log::critical("DEPARTMENT OF ID " . $id .  " DELETED BY USER ID: " . Auth::id() . " NAME " . Auth::user()->name . " AT " . $now);
+
+        Toastr::success('Department deleted successfully');
+        return back();
     }
 }

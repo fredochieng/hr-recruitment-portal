@@ -9,10 +9,6 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Closed Job Postings</h3>
-        <div class="pull-right">
-            <a href="#" data-target="#modal_add_job" data-toggle="modal" class="btn btn-primary" data-backdrop="static"
-                data-keyboard="false"><i class="fa fa-plus"></i> New Job Posting </a>
-        </div>
     </div>
 
     <div class="box-body">
@@ -38,7 +34,7 @@
                         <td>{{$item->opening_name}}</td>
                         <td>{{$item->type_name}}</td>
                         <td><span class="pull-right-container"><small
-                                class="badge bg-{{ $item->label_color }}">{{$item->status_name}}</small></span></td>
+                                    class="badge bg-{{ $item->label_color }}">{{$item->status_name}}</small></span></td>
                         <td>{{$item->country_name}}</td>
                         <td>{{$item->department_name}}</td>
                         <td>{{$item->name}}</td>

@@ -46,7 +46,7 @@
                         <td>
                             <a href="/interview/manage/&id={{$item->interview_id}}" class="btn btn-flat btn-info
                         btn-sm"><i class="fa fa-eye"></i></a>
-
+                            @if((auth()->user()->can('interview.delete')))
                             @if ($item->interview_status == 3)
                             <a class="btn btn-danger btn-sm disabled" title="Delete Job Interview" href="#"
                                 data-toggle="modal" data-target="#modal_delete_interview_{{$item->interview_id}}"
@@ -55,6 +55,7 @@
                             <a class="btn btn-danger btn-sm" title="Delete Job Interview" href="#" data-toggle="modal"
                                 data-target="#modal_delete_interview_{{$item->interview_id}}" data-backdrop="static"
                                 data-keyboard="false"><i class="fa fa-trash"></i></a>
+                            @endif
                             @endif
 
                         </td>

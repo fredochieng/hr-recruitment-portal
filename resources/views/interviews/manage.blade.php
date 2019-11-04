@@ -5,15 +5,17 @@
 @section('content_header')
 <h1><strong>{{$interviews->interview_name}}</strong>
     <p class="pull-right">
+        @if((auth()->user()->can('interview.edit')))
         <a href="#" data-toggle="modal" data-target="#modal_edit_interview_{{ $interviews->interview_id }}"
             class="btn btn-primary btn-sm btn-flat"><i class="fas fa-fw fa-plus-circle"></i>
             EDIT INTERVIEW</a>
-
+        @endif
         @if ($interviews->interview_status == 2)
         <a href="#" data-toggle="modal" data-target="#modal_selected_candidates_{{$interviews->interview_id}}"
             class="btn btn-warning btn-sm btn-flat"><i class="fas fa-fw fa-plus-circle"></i>
             SELECTED CANDIDATES</a>
         @endif
+        @if((auth()->user()->can('interview.add_candidates')))
         @if ($interviews->interview_status == 1)
         <a href="#" data-toggle="modal" data-target="#modal_add_candidates_{{$interviews->interview_id}}"
             class="btn btn-info btn-sm btn-flat"><i class="fas fa-fw fa-plus-circle"></i>
@@ -23,15 +25,19 @@
             class="btn btn-info btn-sm btn-flat"><i class="fas fa-fw fa-plus-circle"></i>
             ADD CANDIDATES</a>
         @endif
+        @endif
 
+        @if((auth()->user()->can('interview.add_panelists')))
         @if ($interviews->interview_status == 1)
         <a href="#" data-toggle="modal" data-target="#modal_add_panelist_{{$interviews->interview_id}}"
             class="btn btn-warning btn-sm btn-flat"><i class="fas fa-fw fa-plus-circle"></i>
             ADD PANELIST</a>
         @endif
+        @endif
 
         @if ($interviews->interview_status == '1' && count($candidates) > 0)
 
+        @if((auth()->user()->can('interview.start_session')))
         <a href="#" data-toggle="modal" data-target="#modal_start_session_{{ $interviews->interview_id }}"
             class="btn btn-success btn-sm btn-flat"><i class="fas fa-fw fa-bolt"></i>
             START SESSION</a>
@@ -40,11 +46,15 @@
             class="btn btn-success btn-sm btn-flat"><i class="fas fa-fw fa-bolt"></i>
             START SESSION</a>
         @endif
+        @endif
+
+        @if((auth()->user()->can('interview.close_session')))
         @if ($interviews->interview_status == '4')
 
         <a href="#" data-toggle="modal" data-target="#modal_close_session_{{ $interviews->interview_id }}"
             class="btn btn-danger btn-sm btn-flat"><i class="fas fa-fw fa-check"></i>
             CLOSE SESSION</a>
+        @endif
         @endif
     </p>
 </h1>
@@ -139,6 +149,8 @@
                         <td>
                             <a href="/candidate/manage/&id={{$item->candidate_id}}" target="_blank"
                                 class="btn btn-flat btn-info btn-sm"><i class="fa fa-eye"></i></a>
+
+                            @if((auth()->user()->can('interview.start_candidate_session')))
                             @if ($item->interviewed == 'PENDING' && $interviews->interview_status == '4' )
                             <a class="btn btn-primary btn-sm" title="Start Session" href="#" data-toggle="modal"
                                 data-target="#modal_start_candidate_session_{{$item->candidate_id}}"
@@ -149,10 +161,13 @@
                                 data-target="#modal_start_candidate_sessionddd_{{$item->candidate_id}}"
                                 data-backdrop="static" data-keyboard="false"><i class="fa fa-bolt"></i></a>
                             @endif
+                            @endif
 
+                            @if((auth()->user()->can('interview.delete_candidate')))
                             <a class="btn btn-danger btn-sm" title="Delete Candidate" href="#" data-toggle="modal"
                                 data-target="#modal_delete_candidate_{{$item->candidate_id}}" data-backdrop="static"
                                 data-keyboard="false"><i class="fa fa-trash"></i></a>
+                            @endif
                         </td>
                     </tr>
                     @include('interviews.modals.modal_delete_candidate')

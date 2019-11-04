@@ -60,3 +60,7 @@ Route::any('exit_interview/deleted', 'ExitInterviewsController@deletedExitInterv
 
 // Department Routes
 Route::resource('departments', 'DepartmentController');
+Route::any('/update_department', 'DepartmentController@updateDepartment');
+
+// Users Routes
+Route::resource('users', 'UsersController');

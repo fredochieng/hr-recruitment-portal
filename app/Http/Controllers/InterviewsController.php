@@ -159,10 +159,19 @@ class InterviewsController extends Controller
 
         $data['average_ratings'] = CandidateRating::getAverageRatings()->where('interview_id', '=', $interview_id);
 
-        //dd($data['average_ratings']);
+        $data['selected_candidates'] = Interview::getSelectedCandidates()->where('int_id', $interview_id)
+            ->where('decision_by', '=', $data['interviews']->funct_head_id);
 
-        $data['selected_candidates'] = Interview::getSelectedCandidates()->where('int_id', $interview_id);
-        //dd($data['ratings']);
+        $data['hr_director_selected_candidates'] = Interview::getSelectedCandidates()->where('int_id', $interview_id)
+            ->where('decision_by', '!=', $data['interviews']->funct_head_id);
+
+        if (count($data['hr_director_selected_candidates']) > 0) {
+            $data['hr_submission'] = 'Y';
+        } else {
+            $data['hr_submission'] = 'N';
+        }
+
+        // dd($data['ratings']);
 
         return view('interviews.manage')->with($data);
     }
@@ -277,7 +286,6 @@ class InterviewsController extends Controller
                 'cv' => $cv_files[$i],
                 'interview_time' => strtoupper($interview_times[$i])
             );
-
             $insertData[] = $data;
         }
 

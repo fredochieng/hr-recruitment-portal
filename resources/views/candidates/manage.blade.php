@@ -5,14 +5,7 @@
 @section('content_header')
 <h1><strong>CANDIDATE NAME: {{$candidates->name}}</strong>
     <p class="pull-right">
-        @if($candidates->interviewed == "CLOSED" && $candidates->interview_status == "2" && $function_head_decision ==
-        'N')
-        <button style="margin-top:2px" data-toggle="modal"
-            data-target="#modal_second_interview_{{ $candidates->candidate_id }}" data-backdrop="static"
-            data-keyboard="false" class="btn bg-purple margin"><i class="fa fa-check"></i>
-            SECOND INTERVIEW
-        </button>
-        @endif
+        @if((auth()->user()->can('interview.offer_letter')))
         @if($candidates->interviewed == "CLOSED" && $candidates->interview_status == "2" && $function_head_decision
         == 'N')
         <button style="margin-top:2px" data-toggle="modal"
@@ -21,7 +14,18 @@
             OFFER LETTER
         </button>
         @endif
-
+        @endif
+        @if((auth()->user()->can('interview.second_interview')))
+        @if($candidates->interviewed == "CLOSED" && $candidates->interview_status == "2" && $function_head_decision ==
+        'N')
+        <button style="margin-top:2px" data-toggle="modal"
+            data-target="#modal_second_interview_{{ $candidates->candidate_id }}" data-backdrop="static"
+            data-keyboard="false" class="btn bg-purple margin"><i class="fa fa-check"></i>
+            SECOND INTERVIEW
+        </button>
+        @endif
+        @endif
+        @if((auth()->user()->can('candidate.start_rating')))
         @if ($candidates->opening_type == 1)
         @if($rated == 'N' && $candidates->interviewed == "ONGOING")
         <button style="margin-top:2px" data-toggle="modal"
@@ -51,12 +55,15 @@
             RATING</button>
         @endif
         @endif
+        @endif
+        @if((auth()->user()->can('interview.close_candidate_session')))
         @if($candidates->interviewed == "ONGOING")
         <button style="margin-top:2px" data-toggle="modal"
             data-target="#modal_close_candidate_session_{{ $candidates->candidate_id }}" data-backdrop="static"
             data-keyboard="false" class="btn bg-green margin"><i class="fa fa-check"></i>
             CLOSE
             SESSION</button>
+        @endif
         @endif
     </p>
 </h1>

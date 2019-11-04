@@ -16,7 +16,7 @@
     </div>
 
     <div class="box-body">
-        <div class="table-responsive" style="font-size:12px">
+        <div class="table-responsive" style="font-size:11px">
             <table id="example1" class="table table-hover">
                 <thead>
                     <tr>
@@ -48,8 +48,8 @@
                         <td>{{$item->exit_interview_created_at}}</td>
                         <td>
                             @if ($item->deleted_at != '')
-                            <a class="btn btn-danger btn-sm" title="Delete Exit Interview" href="#" data-toggle="modal" disabled
-                                data-target="#modal_delete_exit_interview_{{$item->exit_interview_id}}"
+                            <a class="btn btn-danger btn-sm" title="Delete Exit Interview" href="#" data-toggle="modal"
+                                disabled data-target="#modal_delete_exit_interview_{{$item->exit_interview_id}}"
                                 data-backdrop="static" data-keyboard="false"><i class="fa fa-trash"></i></a>
                             @else
                             <a class="btn btn-danger btn-sm" title="Delete Exit Interview" href="#" data-toggle="modal"

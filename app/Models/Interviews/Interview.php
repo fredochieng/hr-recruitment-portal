@@ -156,14 +156,19 @@ class Interview extends Model
     {
         $candidates = DB::table('candidates_decision')->select(
             DB::raw('candidates_decision.*'),
+            DB::raw('candidates_decision.candidate_id as cand_id'),
             DB::raw('candidates_decision.created_by as decision_date'),
             DB::raw('interview_candidates.id as interview_candidate_id'),
             DB::raw('interview_candidates.*'),
+            DB::raw('interview_candidates.name as candidate_name'),
             DB::raw('interview_decision.id as interview_decision_id'),
-            DB::raw('interview_decision.decision')
+            DB::raw('interview_decision.decision'),
+            DB::raw('interviews.id as interview_id'),
+            DB::raw('interviews.funct_head_id')
         )
             ->leftJoin('interview_candidates', 'candidates_decision.candidate_id', '=', 'interview_candidates.id')
             ->leftJoin('interview_decision', 'candidates_decision.decision_id', '=', 'interview_decision.id')
+            ->leftJoin('interviews', 'candidates_decision.int_id', '=', 'interviews.id')
             ->get();
 
         $candidates->map(function ($item) {

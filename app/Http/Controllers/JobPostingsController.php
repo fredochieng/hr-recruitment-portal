@@ -26,7 +26,7 @@ class JobPostingsController extends Controller
     public function index()
     {
         $data['job_postings'] = JobPosting::getJobPostings();
-       // dd($data['job_postings']);
+        // dd($data['job_postings']);
         // Array of all countries, departments, job types passed through Country, Department & JobType Models from the database
         $data['countries'] = Country::getCountries();
         $data['departments'] = Department::getDepartments();
@@ -164,13 +164,15 @@ class JobPostingsController extends Controller
         $data['interview_name'] =  $data['job_postings']->opening_ticket . '- INTERVIEW';
 
         $department_id = $data['job_postings']->department_id;
-        $functional_heads =  $data['departments']->where('id', '=', $department_id)->first();
+
+        $functional_heads =  $data['departments']->where('department_id', '=', $department_id)->first();
 
         $func_heads = $functional_heads->functional_heads;
 
         if (!empty($func_heads)) {
 
             $functional_heads = explode(';',  $func_heads);
+            //§dd($functional_heads);
 
             $functional_heads = array_filter(array_map('trim', $functional_heads));
             $functional_heads = str_replace('["', '', $functional_heads);

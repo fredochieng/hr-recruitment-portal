@@ -19,7 +19,9 @@
                                 <th>Interview End Time</th>
                                 <th>Decision</th>
                                 <th>Average Marks</th>
+                                @if((auth()->user()->can('interview.offer_letter')))
                                 <th>Action (Offer Letter/ Second Interview)</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -33,6 +35,7 @@
                                 <td>{{ $item->decision }}</td>
                                 <td><strong>{{ round($item->average_marks) }}/ 80 Marks</strong></td>
                                 <td>
+                                    @if((auth()->user()->can('interview.offer_letter')))
                                     @if ($item->interview_decision_id == 1 || $item->interview_decision_id == 2)
                                     <a href="" data-backdrop="static" disabled data-keyboard="false" data-toggle="modal"
                                         data-target="#modal_offer_letterdddd_{{$item->cand_id}}"
@@ -49,7 +52,9 @@
                                         class="btn btn-xs btn-primary"><i class="fas fa-fw fa-check"></i> Offer
                                         Letter</a>
                                     @endif
+                                    @endif
 
+                                    @if((auth()->user()->can('interview.second_interview')))
                                     @if ($item->interview_decision_id == 2 || $item->interview_decision_id == 1)
                                     <a href="" data-backdrop="static" disabled data-keyboard="false" data-toggle="modal"
                                         data-target="#modal_second_interviewdddd_{{$item->cand_id}}"
@@ -65,6 +70,7 @@
                                         data-target="#modal_second_interview_{{$item->cand_id}}"
                                         class="btn btn-xs btn-warning"><i class="fas fa-fw fa-bolt"></i> Second
                                         Interview</a>
+                                    @endif
                                     @endif
                                 </td>
                             </tr>

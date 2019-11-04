@@ -279,6 +279,7 @@ return [
         ],
         [
             'text'    => 'User Management',
+            'url' => 'users',
             'icon'    => 'fas fa-fw fa-user-circle',
             'icon_color' => 'green',
         ],

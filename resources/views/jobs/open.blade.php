@@ -9,10 +9,6 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Open Job Postings</h3>
-        <div class="pull-right">
-            <a href="#" data-target="#modal_add_job" data-toggle="modal" class="btn btn-primary" data-backdrop="static"
-                data-keyboard="false"><i class="fa fa-plus"></i> New Job Posting </a>
-        </div>
     </div>
 
     <div class="box-body">

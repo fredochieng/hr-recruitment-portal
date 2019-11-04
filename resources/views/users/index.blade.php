@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Departments | Wananchi Group HR Recruitment')
+@section('title', 'Users | Wananchi Group HR Recruitment')
 
 @section('content_header')
 @stop
@@ -8,10 +8,10 @@
 @section('content')
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">All Departments</h3>
+        <h3 class="box-title">All Users</h3>
         <div class="pull-right">
             <a href="#" data-target="#modal_add_department" data-toggle="modal" class="btn btn-primary"
-                data-backdrop="static" data-keyboard="false"><i class="fa fa-plus"></i> New Department </a>
+                data-backdrop="static" data-keyboard="false"><i class="fa fa-plus"></i> New User </a>
         </div>
     </div>
 
@@ -21,39 +21,26 @@
                 <thead>
                     <tr>
                         <th>S/N</th>
-                        <th>Department Name</th>
-                        <th>Country Name</th>
-                        <th>Functional Heads</th>
+                        <th>Full Name</th>
+                        <th>Email Address</th>
+                        <th>User Role</th>
                         <th>Created At</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($departments as $count => $item)
+                    @foreach ($users as $count => $item)
                     <tr>
                         <td>{{ $count + 1 }}</td>
-                        <td>{{$item->department_name}}</td>
-                        <td>{{$item->country_name}}</td>
-                        <td><a href="" data-toggle="modal"
-                                data-target="#modal_show_functional_heads_{{ $item->department_id }}"><strong>
-                                    View Functional Head
-                                </strong></a>
-                        </td>
-                        <td>{{$item->department_created_at}}</td>
-                        <td>
-                            <a href="#" data-target="#modal_edit_department_{{ $item->department_id }}"
-                                data-toggle="modal" class="btn btn-flat btn-info
-                            btn-sm" data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil-square-o"></i>
-                                Edit
-                            </a>
-                            <a class="btn btn-danger btn-sm" title="Delete Department" href="#" data-toggle="modal"
-                                data-target="#modal_delete_department_{{$item->department_id}}" data-backdrop="static"
+                        <td>{{$item->user_name}}</td>
+                        <td>{{$item->email}}</td>
+                        <td>{{$item->role_name}}</td>
+                        <td>{{$item->user_created_at}}</td>
+                        <td><a class="btn btn-danger btn-sm" title="Delete Department" href="#" data-toggle="modal"
+                                data-target="#modal_delete_exit_interview_{{$item->user_id}}" data-backdrop="static"
                                 data-keyboard="false"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
-                    @include('departments.modals.modal_edit_department')
-                    @include('departments.modals.modal_delete_department')
-                    @include('departments.modals.modal_show_functional_heads')
                     @endforeach
                 </tbody>
             </table>
@@ -62,7 +49,7 @@
     <!-- /.box-body -->
 </div>
 
-@include('departments.modals.modal_add_department')
+{{-- @include('departments.modals.modal_add_department') --}}
 
 
 @stop
