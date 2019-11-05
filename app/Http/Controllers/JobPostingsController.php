@@ -9,7 +9,6 @@ use App\Models\Departments\Department;
 use App\Models\JobTypes\JobType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Input;
 use DB;
@@ -130,6 +129,7 @@ class JobPostingsController extends Controller
         $job_posting->country_id = $country_id;
         $job_posting->department_id = $department_id;
         $job_posting->no_of_candidates = $no_of_candidates;
+        $job_posting->job_date = $now;
         $job_posting->created_by = $user_id;
 
         $job_posting->save();

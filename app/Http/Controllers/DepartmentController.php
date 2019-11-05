@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Countries\Country;
 use App\Models\Departments\Department;
+use App\Models\InviteMails\InviteMail;
 use App\User;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Hash;
 use Kamaln7\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-
 
 class DepartmentController extends Controller
 {
@@ -55,6 +55,14 @@ class DepartmentController extends Controller
         $password = strtolower(str_random(8));
         $user->password = Hash::make($password);
         $user->save();
+
+        $invite_mail = new InviteMail();
+        $invite_mail->panelist_name = $user->name;
+        $invite_mail->panelist_email = $user->email;
+        $invite_mail->message = "You have been added as a functional head for department " . ucwords($request->input('department_name')) .
+            " You can login to Wananchi HR Recruitment Portal using your email address " . $user->email . " and your password is " . $password;
+
+        $invite_mail->save();
 
         $just_saved_user_id = $user->id;
         $just_saved_user_id1 = $user->id;

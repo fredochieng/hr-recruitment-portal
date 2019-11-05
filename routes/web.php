@@ -64,3 +64,11 @@ Route::any('/update_department', 'DepartmentController@updateDepartment');
 
 // Users Routes
 Route::resource('users', 'UsersController');
+
+// Reports Routes
+Route::any('reports/jobs', 'ReportsController@jobs');
+Route::any('reports/interviews', 'ReportsController@interviews');
+Route::any('reports/exit_interviews', 'ReportsController@exit_interviews');
+Route::any('reports/jobs', 'ReportsController@jobs');
+Route::any('reports/jobs/view', 'ReportsController@jobsReport');
+Route::any('report/jobs/excel/generate', 'ReportsController@exportJobsReport');

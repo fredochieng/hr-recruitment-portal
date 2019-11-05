@@ -253,19 +253,19 @@ return [
             'submenu' => [
                 [
                     'text' => 'Job Postings',
-                    'url'  => '',
+                    'url'  => 'reports/jobs',
                     'icon'    => 'fas fa-fw fa-list-alt',
                     'icon_color' => 'purple'
                 ],
                 [
                     'text' => 'Job Interviews',
-                    'url'  => '',
+                    'url'  => 'reports/interviews',
                     'icon' => 'fas fa-fw fa-th-list',
                     'icon_color' => 'green'
                 ],
                 [
                     'text' => 'Exit Interviews',
-                    'url'  => 'exit_interviews',
+                    'url'  => 'reports/exit_interviews',
                     'icon' => 'fas fa-fw fa-list-ul',
                     'icon_color' => 'aqua'
                 ],
