@@ -25,19 +25,6 @@ class Department extends Model
             ->orderBy('departments.id', 'asc')->get();
 
         $departments->map(function ($item) {
-            $functional_heads = explode(';',  $item->functional_heads);
-            //§dd($functional_heads);
-
-            $functional_heads = array_filter(array_map('trim', $functional_heads));
-            $functional_heads = str_replace('["', '', $functional_heads);
-            $functional_heads = str_replace('"]', '', $functional_heads);
-            $functional_heads = str_replace('","', ',', $functional_heads);
-
-            foreach ($functional_heads as $key => $value) {
-                $functional_heads = ($value);
-            }
-
-            $functional_heads = explode(',', $functional_heads);
 
             $data['functional_heads_data'] = DB::table('users')
                 ->select(
@@ -45,11 +32,12 @@ class Department extends Model
                     DB::raw('users.name'),
                     DB::raw('users.email')
                 )
-                ->whereIn('id', $functional_heads)->get();
+                ->where('dept_id', $item->department_id)->get();
 
             $item->functional_heads_data = $data['functional_heads_data'];
             return $item;
         });
+        //  dd($departments);
         return $departments;
     }
 

@@ -67,8 +67,22 @@ Route::resource('users', 'UsersController');
 
 // Reports Routes
 Route::any('reports/jobs', 'ReportsController@jobs');
-Route::any('reports/interviews', 'ReportsController@interviews');
-Route::any('reports/exit_interviews', 'ReportsController@exit_interviews');
-Route::any('reports/jobs', 'ReportsController@jobs');
 Route::any('reports/jobs/view', 'ReportsController@jobsReport');
 Route::any('report/jobs/excel/generate', 'ReportsController@exportJobsReport');
+
+Route::any('reports/interviews', 'ReportsController@interviews');
+Route::any('reports/interviews/view', 'ReportsController@interviewsReport');
+
+
+Route::any('reports/candidates/added', 'ReportsController@addedCandidates');
+Route::any('reports/candidates/added/view', 'ReportsController@addedCandidatesReport');
+
+Route::any('reports/candidates/rated', 'ReportsController@ratedCandidates');
+Route::any('reports/candidates/rated/view', 'ReportsController@ratedCandidatesReport');
+
+Route::any('reports/candidates/selected', 'ReportsController@selectedCandidates');
+Route::any('reports/candidates/selected/view', 'ReportsController@selectedCandidatesReport');
+
+
+Route::any('reports/exit_interviews', 'ReportsController@exit_interviews');
+Route::any('reports/exit_interviews/view', 'ReportsController@exitInterviewsReport');

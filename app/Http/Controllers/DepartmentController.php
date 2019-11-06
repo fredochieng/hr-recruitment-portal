@@ -49,12 +49,22 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
+        $department = new Department();
+        $department->country_id = $request->input('country_id');
+        $department->department_name = ucwords($request->input('department_name'));
+        $department->save();
+
+        $just_saved_dept_id = $department->id;
+
         $user = new  User();
         $user->name = strtoupper($request->input('name'));
         $user->email = $request->input('email');
+        $user->dept_id = $just_saved_dept_id;
         $password = strtolower(str_random(8));
         $user->password = Hash::make($password);
         $user->save();
+
+        $just_saved_user_id = $user->id;
 
         $invite_mail = new InviteMail();
         $invite_mail->panelist_name = $user->name;
@@ -64,22 +74,8 @@ class DepartmentController extends Controller
 
         $invite_mail->save();
 
-        $just_saved_user_id = $user->id;
-        $just_saved_user_id1 = $user->id;
-
-        $just_saved_user_id = (array) $just_saved_user_id;
-        $user_ids = json_encode($just_saved_user_id);
-        $user_ids = str_replace('[', '["', $user_ids);
-        $user_ids = str_replace(']', '"]', $user_ids);
-
-        $department = new Department();
-        $department->country_id = $request->input('country_id');
-        $department->department_name = ucwords($request->input('department_name'));
-        $department->functional_heads = $user_ids;
-        $department->save();
-
         $user_role = array(
-            'model_id' => $just_saved_user_id1,
+            'model_id' => $just_saved_user_id,
             'role_id' => 3
         );
         $save_user_role = DB::table('model_has_roles')->insertGetId($user_role);

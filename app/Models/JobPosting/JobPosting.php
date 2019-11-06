@@ -110,33 +110,35 @@ class JobPosting extends Model
                 ->whereIn($compare_field, $compare_value)
                 ->orderBy('job_openings.id', 'desc')->get();
         } elseif ($user_role == "Functional Head") {
+            $department_id = Auth::user()->dept_id;
+            $compare_field = "job_openings.department_id";
+            $compare_value = $department_id;
 
-            $departments = DB::table('departments')->select(
-                DB::raw('departments.id as department_id'),
-                DB::raw('departments.functional_heads')
-            )
-                ->get();
-
-            $group = [];
-            $functional_head = array();
-            foreach ($departments as $key => $value) {
-
-                $value->functional_heads = str_replace('"', '', $value->functional_heads);
-                $value->functional_heads = explode(',', $value->functional_heads);
-
-
-                // $month = $user_id;
-                // if (!isset($value->functional_heads[$value[0]])) {
-                //     $value->functional_heads[$value[0]] = array();
-                // }
-                // if (!isset($value->functional_heads[$value[0]][$month])) {
-                //     $value->functional_heads[$value[0]][$month] = 0;
-                // }
-                // $value->functional_heads[$value[0]][$month] += 1;
-            }
-            echo "<pre>";
-            print_r($departments);
-            exit;
+            $job_postings = DB::table('job_openings')
+                ->select(
+                    DB::raw('job_openings.*'),
+                    DB::raw('job_openings.id as job_opening_id'),
+                    DB::raw('job_openings.created_at as posting_created_at'),
+                    DB::raw('job_types.id'),
+                    DB::raw('job_types.id as job_type_id'),
+                    DB::raw('job_types.type_name'),
+                    DB::raw('status.id'),
+                    DB::raw('status.status_name'),
+                    DB::raw('status.label_color'),
+                    DB::raw('countries.*'),
+                    DB::raw('countries.id as country_id'),
+                    DB::raw('departments.*'),
+                    DB::raw('departments.id as department_id'),
+                    DB::raw('users.id'),
+                    DB::raw('users.name')
+                )
+                ->leftJoin('job_types', 'job_openings.opening_type', '=', 'job_types.id')
+                ->leftJoin('status', 'job_openings.opening_status', '=', 'status.id')
+                ->leftJoin('countries', 'job_openings.country_id', '=', 'countries.id')
+                ->leftJoin('departments', 'job_openings.department_id', '=', 'departments.id')
+                ->leftJoin('users', 'job_openings.created_by', '=', 'users.id')
+                ->where($compare_field, $compare_value)
+                ->orderBy('job_openings.id', 'desc')->get();
         }
 
         return $job_postings;

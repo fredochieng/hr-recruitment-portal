@@ -7,6 +7,7 @@ use App\Models\Departments\Department;
 use App\Models\ExitInterviews\ExitInterview;
 use App\Models\InterviewPanelists\InterviewPanelist;
 use App\Models\Interviews\Interview;
+use App\Models\JobPosting\JobPosting;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -68,5 +69,12 @@ class HomeModel extends Model
         $interviewed_candidates = CandidateRating::getAverageRatings()->count();
 
         return $interviewed_candidates;
+    }
+
+    public static function jobPostingsCount()
+    {
+        $job_postings = JobPosting::getJobPostings()->count();
+
+        return $job_postings;
     }
 }

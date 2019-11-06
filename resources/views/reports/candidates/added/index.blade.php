@@ -1,7 +1,7 @@
 @extends('adminlte::page')
-@section('title', 'Jobs Posting Report | Wananchi Group HR Recruitment')
+@section('title', 'Added Candidates Report | Wananchi Group HR Recruitment')
 @section('content_header')
-<h1>Jobs Posting Report</h1>
+<h1>Added Candidates Report</h1>
 @stop
 @section('content')
 <div class="row">
@@ -17,20 +17,19 @@
             <div id="collapseFilter" class="panel-collapse active collapse in" aria-expanded="true">
                 <div class="box-body">
                     {!!
-                    Form::open(['action'=>['ReportsController@jobsReport'],
+                    Form::open(['action'=>['ReportsController@addedCandidatesReport'],
                     'method'=>'POST','class'=>'form','enctype'=>'multipart/form-data'])
                     !!}
                     <div class="col-md-12">
-                        <div class="col-md-3">
-                            {{Form::label('Job Status')}}
+                        <div class="col-md-2">
+                            {{Form::label('Interview Status')}}
                             <div class="form-group">
-                                <select class="form-control select2" id="status_id" name="status_id" required
-                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                    <option selected="selected" value="">Select job status</option>
-                                    @foreach($job_status as $item)
-                                    <option value="{{ $item->id }}">{{ $item->status_name }}
-                                    </option>
-                                    @endforeach
+                                <select class="form-control select2" id="interview_status" name="interview_status"
+                                    required style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                    <option selected="selected" value="">Select interview status</option>
+                                    <option value="PENDING">PENDING</option>
+                                    <option value="ONGOING">ONGOING</option>
+                                    <option value="CLOSED">CLOSED</option>
                                 </select>
                             </div>
                         </div>
@@ -55,9 +54,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                {!! Form::label('Date Range') !!}
+                                {!! Form::label('Interview Date') !!}
                                 {!! Form::text('date_range', null, ['placeholder' => 'Select date range', 'class' =>
                                 'form-control', 'id' => 'daterange-btn', 'readonly']); !!}
                             </div>
@@ -65,8 +64,8 @@
 
                         <div class="col-md-2">
                             <button type="submit" style="margin-top:25px;"
-                                class="btn btn-block btn-info pull-right"><strong><i
-                                        class="fa fa-fw fa-search"></i>Generate Report</strong></button>
+                                class="btn btn-block btn-info pull-right"><strong><i class="fa fa-fw fa-search"></i>View
+                                    Report</strong></button>
                         </div>
                     </div>
                     {!! Form::close() !!}

@@ -245,6 +245,7 @@ return [
             'url'  => 'departments',
             'icon' => 'fas fa-fw fa-laptop',
             'icon_color' => 'blue',
+            'can' => 'departments.view',
         ],
         [
             'text'    => 'Reports',
@@ -275,6 +276,31 @@ return [
                     'icon' => 'fas fa-fw fa-users',
                     'icon_color' => 'red'
                 ],
+                [
+                    'text' => 'Candidates Report',
+                    'icon' => 'fas fa-fw fa-users',
+                    'icon_color' => 'blue',
+                    'submenu'  => [
+                        [
+                            'text' => 'Added Candidates',
+                            'url'  => 'reports/candidates/added',
+                            'icon' => 'fas fa-fw fa-users',
+                            'icon_color' => 'yellow'
+                        ],
+                        [
+                            'text' => 'Rated Candidates',
+                            'url'  => 'reports/candidates/rated',
+                            'icon' => 'fas fa-fw fa-users',
+                            'icon_color' => 'purple'
+                        ],
+                        [
+                            'text' => 'Selected Candidates',
+                            'url'  => 'reports/candidates/selected',
+                            'icon' => 'fas fa-fw fa-users',
+                            'icon_color' => 'green'
+                        ],
+                    ],
+                ],
             ],
         ],
         [
@@ -282,6 +308,7 @@ return [
             'url' => 'users',
             'icon'    => 'fas fa-fw fa-user-circle',
             'icon_color' => 'green',
+            'can' => 'departments.view',
         ],
 
     ],

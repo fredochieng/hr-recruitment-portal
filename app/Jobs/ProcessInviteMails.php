@@ -42,15 +42,12 @@ class ProcessInviteMails implements ShouldQueue
             ->limit(40)
             ->get();
 
-        //dd($invites);
-
         if ($invites) {
             $now = Carbon::now('Africa/Nairobi');
             Log::info("MAIL SENDING FOR BATCH STARTED AT " . $now);
 
             foreach ($invites as $key => $value) {
                 try {
-                    // dd($title);
                     Mail::to($value->panelist_email)->send(new PanelistInviteNotification($value->panelist_name, $title, $value->message));
                 } catch (Swift_TransportException $e) {
                     \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
@@ -60,8 +57,8 @@ class ProcessInviteMails implements ShouldQueue
                     'delivered' => '1'
                 );
 
-                // $send_message = DB::table('interview_invites')->where('id', $value->id)
-                //     ->update($send_mail);
+                $send_message = DB::table('interview_invites')->where('id', $value->id)
+                    ->update($send_mail);
 
                 Log::info("Mesaage template id " . $value->id . " sent to " . $value->panelist_email . " at " . $now);
             }

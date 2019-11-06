@@ -69,6 +69,7 @@ class User extends Authenticatable
     }
     public function isFunctionlHead()
     {
+
         return $this->hasRole('FunctionlHead');
     }
     public function isHRDirector()

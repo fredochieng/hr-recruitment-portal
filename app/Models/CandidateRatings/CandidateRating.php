@@ -99,6 +99,7 @@ class CandidateRating extends Model
                 DB::raw('avg(candidate_ratings.total_marks) as average_marks'),
                 DB::raw('interview_candidates.id as candidate_id'),
                 DB::raw('interview_candidates.name as candidate_name'),
+                DB::raw('CAST(interview_candidates.started_at as DATE) as candidate_interview_date'),
                 DB::raw('interview_candidates.started_at as session_start_time'),
                 DB::raw('interview_candidates.ended_at as session_end_time'),
                 DB::raw('interview_candidates.email'),
@@ -108,6 +109,13 @@ class CandidateRating extends Model
                 DB::raw('candidates_decision.decision_id'),
                 DB::raw('candidates_decision.candidate_id as candidates_decision_cand_id'),
                 DB::raw('interview_decision.decision'),
+                DB::raw('job_openings.id as job_id'),
+                DB::raw('job_openings.country_id'),
+                DB::raw('job_openings.department_id'),
+                DB::raw('countries.id as countryId'),
+                DB::raw('countries.country_name'),
+                DB::raw('departments.id as departmentId'),
+                DB::raw('departments.department_name'),
                 DB::raw('interview_decision.id as interview_decision_id'),
                 DB::raw('candidate_ratings.candidate_id as cand_id'),
                 DB::raw('candidates_decision.id as candidates_decision_id')
@@ -117,6 +125,9 @@ class CandidateRating extends Model
             ->leftJoin('interviews', 'interview_candidates.int_id', '=', 'interviews.id')
             ->join('candidates_decision', 'candidates_decision.candidate_id', '=', 'candidate_ratings.candidate_id', 'left outer')
             ->join('interview_decision', 'interview_decision.id', '=', 'candidates_decision.decision_id', 'left outer')
+            ->leftJoin('job_openings', 'interviews.job_opening_id', '=', 'job_openings.id')
+            ->leftJoin('countries', 'job_openings.country_id', '=', 'countries.id')
+            ->leftJoin('departments', 'job_openings.department_id', '=', 'departments.id')
             ->groupBy('candidate_ratings.candidate_id')
             ->orderBy('average_marks', 'desc')
             ->get();

@@ -36,6 +36,7 @@ class HomeController extends Controller
         $data['panelists_count'] = HomeModel::panelistCount();
         $data['departments_count'] = HomeModel::departmentsCount();
         $data['interviewed_candidates_count'] = HomeModel::interviewedCandidatesCount();
+        $data['job_postings_count'] = HomeModel::jobPostingsCount();
         Toastr::success('Welcome, ' . Auth::user()->name);
         return view('home')->with($data);
     }

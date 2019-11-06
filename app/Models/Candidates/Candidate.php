@@ -37,13 +37,18 @@ class Candidate extends Model
                 DB::raw('interviews.id as interview_id'),
                 DB::raw('candidate_ratings.*'),
                 DB::raw('job_openings.*'),
+                DB::raw('countries.id as countryId'),
+                DB::raw('countries.country_name'),
+                DB::raw('departments.id as departmentId'),
+                DB::raw('departments.department_name'),
                 DB::raw('candidate_ratings.candidate_id as rating_candidate_id'),
                 DB::raw('interview_candidates.id as candidate_id')
 
             )
             ->leftJoin('interviews', 'interview_candidates.int_id', '=', 'interviews.id')
             ->leftJoin('job_openings', 'interviews.job_opening_id', '=', 'job_openings.id')
-            // ->leftJoin('candidate_ratings', 'interview_candidates.id', '=', 'candidate_ratings.candidate_id')
+            ->leftJoin('countries', 'job_openings.country_id', '=', 'countries.id')
+            ->leftJoin('departments', 'job_openings.department_id', '=', 'departments.id')
             ->join('candidate_ratings', 'candidate_ratings.candidate_id', '=', 'interview_candidates.id', 'left outer')
             ->orderBy('interview_candidates.id', 'asc')
             ->get();

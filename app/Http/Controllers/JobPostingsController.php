@@ -165,25 +165,7 @@ class JobPostingsController extends Controller
 
         $department_id = $data['job_postings']->department_id;
 
-        $functional_heads =  $data['departments']->where('department_id', '=', $department_id)->first();
-
-        $func_heads = $functional_heads->functional_heads;
-
-        if (!empty($func_heads)) {
-
-            $functional_heads = explode(';',  $func_heads);
-            //§dd($functional_heads);
-
-            $functional_heads = array_filter(array_map('trim', $functional_heads));
-            $functional_heads = str_replace('["', '', $functional_heads);
-            $functional_heads = str_replace('"]', '', $functional_heads);
-            $functional_heads = str_replace('","', ',', $functional_heads);
-
-            foreach ($functional_heads as $key => $value) {
-                $functional_heads = ($value);
-            }
-
-            $functional_heads = explode(',', $functional_heads);
+        if (!empty($department_id)) {
 
             $data['functional_heads'] = DB::table('users')
                 ->select(
@@ -191,7 +173,8 @@ class JobPostingsController extends Controller
                     DB::raw('users.name'),
                     DB::raw('users.email')
                 )
-                ->whereIn('id', $functional_heads)->get();
+                ->where('dept_id', $department_id)->get();
+
             $data['func_heads'] = 'Y';
         } else {
             $data['functional_heads'] = DB::table('users')
@@ -203,8 +186,6 @@ class JobPostingsController extends Controller
                 ->where('id', 0)->get();
             $data['func_heads'] = 'N';
         }
-
-        // dd($data['functional_heads']);
 
         return view('jobs.manage')->with($data);
     }

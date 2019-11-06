@@ -19,6 +19,7 @@ class ExitInterview extends Model
             DB::raw('exit_interviews.*'),
             DB::raw('exit_interviews.id as exit_interview_id'),
             DB::raw('exit_interviews.created_at as exit_interview_created_at'),
+            DB::raw('CAST(exit_interviews.created_at as DATE) as exit_interview_created_date'),
             DB::raw('users.id'),
             DB::raw('users.name as interviewed_by_name'),
             DB::raw('countries.id'),
