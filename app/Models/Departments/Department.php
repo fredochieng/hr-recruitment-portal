@@ -28,16 +28,19 @@ class Department extends Model
 
             $data['functional_heads_data'] = DB::table('users')
                 ->select(
-                    DB::raw('users.id'),
+                    DB::raw('users.id as user_id'),
                     DB::raw('users.name'),
-                    DB::raw('users.email')
+                    DB::raw('users.email'),
+                    DB::raw('users.created_at as functional_head_created_at')
                 )
                 ->where('dept_id', $item->department_id)->get();
 
             $item->functional_heads_data = $data['functional_heads_data'];
             return $item;
         });
-        //  dd($departments);
+        // echo "<pre>";
+        // print_r($departments);
+        // exit;
         return $departments;
     }
 

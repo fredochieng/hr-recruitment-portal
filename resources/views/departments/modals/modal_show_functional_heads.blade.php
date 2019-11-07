@@ -11,21 +11,31 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                  {{-- <table id="example1" class="table table-hover">
+                    {{-- <table id="example2" class="table table-hover" style="font-size:11px">
                         <thead>
                             <tr>
-                                <th>Candidate Name</th>
-                                <th>Candidate Email</th>
-                                <th>Phone Number</th>
-                                <th>Decision</th>
-                                <th>Decision By</th>
-                                <th>Submitted At</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                <th>Opening Name</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                {{-- <th>Phone</th> --}}
+                    {{-- <th>Decision Date</th>
+                    <th>Country</th>
+                    <th>Department</th>
+                    <th>Interview Start Time</th>
+                    <th>Interview End Time</th>
+                    <th>Decision</th>
+                    <th>Decision By</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($item->functional_heads_data as $item)
+                        <tr>
 
-                        </tbody>
+                        </tr>
+                        @endforeach
+                    </tbody>
                     </table> --}}
+
                 </div>
             </div>
             <div class="modal-footer">

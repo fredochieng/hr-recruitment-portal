@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                {!! Form::label('Date Range') !!}
+                                {!! Form::label('Exit Creation Date') !!}
                                 {!! Form::text('date_range', null, ['placeholder' => 'Select date range', 'class' =>
                                 'form-control', 'id' => 'daterange-btn', 'readonly']); !!}
                             </div>

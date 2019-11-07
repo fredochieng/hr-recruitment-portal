@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                {!! Form::label('Date Range') !!}
+                                {!! Form::label('Interview Date') !!}
                                 {!! Form::text('date_range', $start_date. '-'. $end_date, ['placeholder' => 'Select date
                                 range', 'class' =>
                                 'form-control', 'id' => 'daterange-btn', 'readonly']); !!}
@@ -86,7 +86,7 @@
                                 <th>Job Type</th>
                                 <th>Interview Name</th>
                                 <th>Status</th>
-                                <th>Date</th>
+                                <th>Interview Date</th>
                                 <th>Start Time</th>
                                 <th>Created By</th>
                                 <th>Created At</th>

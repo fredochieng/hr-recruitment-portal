@@ -41,6 +41,8 @@
                         </td>
                         <td>{{$item->department_created_at}}</td>
                         <td>
+                        <td> <a href="/department/manage/&id={{$item->department_id}}"
+                                class="btn btn-flat btn-info btn-sm"><i class="fa fa-eye"></i></a>
                             <a href="#" data-target="#modal_edit_department_{{ $item->department_id }}"
                                 data-toggle="modal" class="btn btn-flat btn-info
                             btn-sm" data-backdrop="static" data-keyboard="false"><i class="fa fa-pencil-square-o"></i>
@@ -63,8 +65,6 @@
 </div>
 
 @include('departments.modals.modal_add_department')
-
-
 @stop
 @section('css')
 

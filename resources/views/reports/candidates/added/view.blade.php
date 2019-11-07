@@ -16,7 +16,7 @@
             </div>
             <div id="collapseFilter" class="panel-collapse active collapse in" aria-expanded="true">
                 <div class="box-body">
-                    {!!
+                    {!! !!}
                     Form::open(['action'=>['ReportsController@jobsReport'],
                     'method'=>'POST','class'=>'form','enctype'=>'multipart/form-data'])
                     !!}
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                {!! Form::label('Date Range') !!}
+                                {!! Form::label('Interview Date') !!}
                                 {!! Form::text('date_range', $start_date. '-'. $end_date, ['placeholder' => 'Select date
                                 range', 'class' =>
                                 'form-control', 'id' => 'daterange-btn', 'readonly']); !!}

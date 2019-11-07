@@ -60,7 +60,9 @@ Route::any('exit_interview/deleted', 'ExitInterviewsController@deletedExitInterv
 
 // Department Routes
 Route::resource('departments', 'DepartmentController');
+Route::any('/department/manage/&id={id}', 'DepartmentController@manageDepartment');
 Route::any('/update_department', 'DepartmentController@updateDepartment');
+Route::any('/update_functiona_head', 'DepartmentController@updateFunctionalHead');
 
 // Users Routes
 Route::resource('users', 'UsersController');
@@ -70,6 +72,7 @@ Route::any('reports/jobs', 'ReportsController@jobs');
 Route::any('reports/jobs/view', 'ReportsController@jobsReport');
 Route::any('report/jobs/excel/generate', 'ReportsController@exportJobsReport');
 
+
 Route::any('reports/interviews', 'ReportsController@interviews');
 Route::any('reports/interviews/view', 'ReportsController@interviewsReport');
 
@@ -77,11 +80,17 @@ Route::any('reports/interviews/view', 'ReportsController@interviewsReport');
 Route::any('reports/candidates/added', 'ReportsController@addedCandidates');
 Route::any('reports/candidates/added/view', 'ReportsController@addedCandidatesReport');
 
+
 Route::any('reports/candidates/rated', 'ReportsController@ratedCandidates');
 Route::any('reports/candidates/rated/view', 'ReportsController@ratedCandidatesReport');
 
+
 Route::any('reports/candidates/selected', 'ReportsController@selectedCandidates');
 Route::any('reports/candidates/selected/view', 'ReportsController@selectedCandidatesReport');
+
+
+Route::any('reports/panelists', 'ReportsController@panelists');
+Route::any('reports/panelists/view', 'ReportsController@panelistsReport');
 
 
 Route::any('reports/exit_interviews', 'ReportsController@exit_interviews');

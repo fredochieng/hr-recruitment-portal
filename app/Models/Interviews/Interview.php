@@ -161,17 +161,28 @@ class Interview extends Model
             DB::raw('candidates_decision.*'),
             DB::raw('candidates_decision.candidate_id as cand_id'),
             DB::raw('candidates_decision.created_by as decision_date'),
+            DB::raw('CAST(candidates_decision.created_by as DATE) as cand_decision_date'),
             DB::raw('interview_candidates.id as interview_candidate_id'),
             DB::raw('interview_candidates.*'),
             DB::raw('interview_candidates.name as candidate_name'),
             DB::raw('interview_decision.id as interview_decision_id'),
             DB::raw('interview_decision.decision'),
             DB::raw('interviews.id as interview_id'),
-            DB::raw('interviews.funct_head_id')
+            DB::raw('interviews.funct_head_id'),
+            DB::raw('job_openings.country_id'),
+            DB::raw('job_openings.opening_name'),
+            DB::raw('job_openings.department_id'),
+            DB::raw('countries.id as countryId'),
+            DB::raw('countries.country_name'),
+            DB::raw('departments.id as departmentId'),
+            DB::raw('departments.department_name')
         )
             ->leftJoin('interview_candidates', 'candidates_decision.candidate_id', '=', 'interview_candidates.id')
             ->leftJoin('interview_decision', 'candidates_decision.decision_id', '=', 'interview_decision.id')
             ->leftJoin('interviews', 'candidates_decision.int_id', '=', 'interviews.id')
+            ->leftJoin('job_openings', 'interviews.job_opening_id', '=', 'job_openings.id')
+            ->leftJoin('countries', 'job_openings.country_id', '=', 'countries.id')
+            ->leftJoin('departments', 'job_openings.department_id', '=', 'departments.id')
             ->get();
 
         $candidates->map(function ($item) {

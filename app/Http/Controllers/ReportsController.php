@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Countries\Country;
 use App\Models\Departments\Department;
 use App\Models\ExitInterviews\ExitInterview;
+use App\Models\InterviewPanelists\InterviewPanelist;
 use App\Models\Interviews\Interview;
 use App\Models\JobPosting\JobPosting;
 use App\Models\JobTypes\JobType;
@@ -60,6 +61,14 @@ class ReportsController extends Controller
         $data['countries'] = Country::getCountries();
         $data['departments'] = Department::getDepartments();
         return view('reports.exit_interviews.index')->with($data);
+    }
+
+    public function panelists()
+    {
+        $data['interview_status'] = DB::table('status')->orderBy('id', 'asc')->get();
+        $data['countries'] = Country::getCountries();
+        $data['departments'] = Department::getDepartments();
+        return view('reports.panelists.index')->with($data);
     }
 
     public function jobsReport(Request $request)
@@ -196,7 +205,7 @@ class ReportsController extends Controller
             ->where('opening_status', $status_id)
             ->where('country_id', $country_id)
             ->where('department_id', $department_id)
-            ->whereBetween('interview_created_date', array($data['start_date'], $data['end_date']));
+            ->whereBetween('interview_date', array($data['start_date'], $data['end_date']));
 
         // echo "<pre>";
         // print_r($data['interviews']);
@@ -313,7 +322,6 @@ class ReportsController extends Controller
         $data['department_id'] = $department_id;
         $data['interview_status'] = $interview_status;
 
-
         return view('reports.candidates.rated.view')->with($data);
     }
 
@@ -340,19 +348,54 @@ class ReportsController extends Controller
         $data['country_name'] = Country::getCountries()->where('id', '=', $country_id)->pluck('country_name')->first();
         $data['department_name'] = Department::getDepartments()->where('department_id', '=', $department_id)->pluck('department_name')->first();
 
-        $data['selected_candidates'] = Interview::getSelectedCandidates();
-        // echo "<pre>";
-        // print_r($data['selected_candidates']);
-        // exit;
-        // $data['rated_candidates'] = CandidateRating::getAverageRatings()
-        //     ->where('country_id', $country_id)
-        //     ->where('department_id', $department_id)
-        //     ->whereBetween('candidate_interview_date', array($data['start_date'], $data['end_date']));
+        $data['selected_candidates'] = Interview::getSelectedCandidates()
+            ->where('country_id', $country_id)
+            ->where('department_id', $department_id)
+            ->whereBetween('cand_decision_date', array($data['start_date'], $data['end_date']));
 
         $data['country_id'] = $country_id;
         $data['department_id'] = $department_id;
         $data['interview_status'] = $interview_status;
 
+        return view('reports.candidates.selected.view')->with($data);
+    }
+
+    public function panelistsReport(Request $request)
+    {
+        $country_id = $request->input('country_id');
+        $department_id = $request->input('department_id');
+        $interview_status = $request->input('interview_status');
+
+        $date_range = $request->input('date_range');
+        $date_range = (array) $date_range;
+        $date_range = str_replace(' - ', ',', $date_range);
+
+        $data['country_id'] = $country_id;
+
+        foreach ($date_range as $key => $value) {
+            $date_range = $value;
+        }
+
+        $date_range = explode(',', $date_range);
+        $data['start_date'] = date('Y-m-d', strtotime($date_range[0]));
+        $data['end_date'] = date('Y-m-d', strtotime($date_range[1]));
+
+        $data['country_name'] = Country::getCountries()->where('id', '=', $country_id)->pluck('country_name')->first();
+        $data['department_name'] = Department::getDepartments()->where('department_id', '=', $department_id)->pluck('department_name')->first();
+
+        $data['panelists_report'] = InterviewPanelist::getPanelistsData();
+        echo "<pre>";
+        print_r($data['panelists_report']);
+        exit;
+
+        // $data['selected_candidates'] = Interview::getSelectedCandidates()
+        //     ->where('country_id', $country_id)
+        //     ->where('department_id', $department_id)
+        //     ->whereBetween('cand_decision_date', array($data['start_date'], $data['end_date']));
+
+        $data['country_id'] = $country_id;
+        $data['department_id'] = $department_id;
+        $data['interview_status'] = $interview_status;
 
         return view('reports.candidates.selected.view')->with($data);
     }

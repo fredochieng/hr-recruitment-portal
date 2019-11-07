@@ -271,12 +271,6 @@ return [
                     'icon_color' => 'aqua'
                 ],
                 [
-                    'text' => 'Panelists Report',
-                    'url'  => '',
-                    'icon' => 'fas fa-fw fa-users',
-                    'icon_color' => 'red'
-                ],
-                [
                     'text' => 'Candidates Report',
                     'icon' => 'fas fa-fw fa-users',
                     'icon_color' => 'blue',
@@ -300,6 +294,12 @@ return [
                             'icon_color' => 'green'
                         ],
                     ],
+                ],
+                [
+                    'text' => 'Panelists Report',
+                    'url'  => 'reports/panelists',
+                    'icon' => 'fas fa-fw fa-users',
+                    'icon_color' => 'red'
                 ],
             ],
         ],

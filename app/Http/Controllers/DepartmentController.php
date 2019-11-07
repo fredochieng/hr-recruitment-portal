@@ -25,9 +25,6 @@ class DepartmentController extends Controller
     {
         $data['countries'] = Country::getCountries();
         $data['departments'] = Department::getDepartments();
-        // echo "<pre>";
-        // print_r($data['departments']);
-        // exit;
         return view('departments.index')->with($data);
     }
 
@@ -81,6 +78,30 @@ class DepartmentController extends Controller
         $save_user_role = DB::table('model_has_roles')->insertGetId($user_role);
 
         Toastr::success('Department added successfully');
+        return back();
+    }
+
+    public function manageDepartment($department_id = null)
+    {
+        $data['departments'] = Department::getDepartments()->where('department_id', $department_id)->first();
+        //dd($data['departments']);
+        return view('departments.manage')->with($data);
+    }
+
+    public function updateFunctionalHead(Request $request)
+    {
+        $user_id = $request->input('user_id');
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $now = Carbon::now('Africa/Nairobi');
+
+        $update_funct_head = User::where("id", $user_id)->update([
+            'name' => strtoupper($name),
+            'email' => $email
+        ]);
+
+        Log::info("FUNCTIONAL HEAD OF ID " . $user_id .  " UPDATED BY USER ID: " . Auth::id() . " NAME " . Auth::user()->name . " AT " . $now);
+        Toastr::success('Functional head updated successfully');
         return back();
     }
 
